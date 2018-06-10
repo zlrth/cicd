@@ -1,13 +1,13 @@
 (ns cicd.steps
   (:require [lambdacd.steps.shell :as shell]
-            [lambdacd-git.core :as git]))
+            [lambdacd-git.core :as git]
+            [clojure.tools.logging :as log]))
 
-(def repo-uri "https://github.com/Stylitics/clj-collage.git")
+(def repo-uri "git@github.com:Stylitics/clj-collage.git")
 
-  (def ssh-uri "git@github.com:Stylitics/clj-collage.git")
-  (def shen-uri "git@github.com:zlrth/shen-rss.git")
-(defn clone-shen [args ctx]
-  (git/clone ctx shen-uri (:revision args) (:cwd args)))
+(defn clone [args ctx]
+  (log/log :info (str "args FIND CWD are: " args))
+  (git/clone ctx repo-uri (:revision args) (:cwd args)))
 
 (defn some-step-that-does-nothing [args ctx]
   {:status :success})
