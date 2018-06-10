@@ -3,6 +3,7 @@
    [hiccup.core :as h]
    [lambdaui.core :as lambdaui]
    [lambdacd.ui.core :as reference-ui]
+   [lambdacd-git.core :as git]
    [compojure.core :refer [routes GET context POST]]
    [clojure.tools.logging :as log])
   (:gen-class))
@@ -28,10 +29,10 @@
       (GET "/" [] (ui-selection))
       (context "/lambdaui"  [] lambdaui-app)
       (context "/reference" [] referenceui-app)
-      (GET "/dorouteswork" [] (do
-                                (log/info "got a get")
-                                "webpage get"))
-      (POST "/testpullrequest" [req] (do
+      (let [_ (log/info pipeline)
+            _ (log/info "get notifications for")]
+        (git/notifications-for pipeline))
+      #_(POST "/testpullrequest" [req] (do
                                        (log/info req)
                                        (str req))))))
 
