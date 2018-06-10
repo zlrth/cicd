@@ -1,9 +1,10 @@
 (ns cicd.ui-selection
   (:require
-    [hiccup.core :as h]
-    [lambdaui.core :as lambdaui]
-    [lambdacd.ui.core :as reference-ui]
-    [compojure.core :refer [routes GET context]])
+   [hiccup.core :as h]
+   [lambdaui.core :as lambdaui]
+   [lambdacd.ui.core :as reference-ui]
+   [compojure.core :refer [routes GET context POST]]
+   [clojure.tools.logging :as log])
   (:gen-class))
 
 (defn- ui-selection []
@@ -26,5 +27,11 @@
     (routes
       (GET "/" [] (ui-selection))
       (context "/lambdaui"  [] lambdaui-app)
-      (context "/reference" [] referenceui-app))))
+      (context "/reference" [] referenceui-app)
+      (GET "/dorouteswork" [] (do
+                                (log/info "got a get")
+                                "webpage get"))
+      (POST "/testpullrequest" [req] (do
+                                       (log/info req)
+                                       (str req))))))
 

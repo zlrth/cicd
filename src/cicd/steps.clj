@@ -3,7 +3,6 @@
             [lambdacd-git.core :as git]
             [clojure.tools.logging :as log]))
 
-(def repo-uri "git@github.com:Stylitics/clj-collage.git")
 (def shen-uri "git@github.com:zlrth/shen.clj.git")
 
 (defn wait-for-repo [_ ctx]
