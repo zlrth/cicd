@@ -4,10 +4,17 @@
             [clojure.tools.logging :as log]))
 
 (def repo-uri "git@github.com:Stylitics/clj-collage.git")
+(def shen-uri "git@github.com:zlrth/shen.clj.git")
+
+(defn wait-for-repo [_ ctx]
+  (git/wait-for-git ctx shen-uri :ms-between-polls 5000 :ref "refs/heads/master"))
 
 (defn clone [args ctx]
   (log/log :info (str "args FIND CWD are: " args))
-  (git/clone ctx repo-uri (:revision args) (:cwd args)))
+  (git/clone ctx shen-uri (:revision args) (:cwd args)))
+
+(defn mytest [args ctx]
+  (shell/bash ctx (:cwd args) "lein test"))
 
 (defn some-step-that-does-nothing [args ctx]
   {:status :success})

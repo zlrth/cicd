@@ -2,11 +2,15 @@
   (:use [lambdacd.steps.control-flow]
         [cicd.steps])
   (:require
-        [lambdacd.steps.manualtrigger :as manualtrigger]))
+   [lambdacd.steps.manualtrigger :as manualtrigger]
+   [lambdacd-git.core :as git]))
 
 (def pipeline-def
   `(
-    manualtrigger/wait-for-manual-trigger
+    (either
+     manualtrigger/wait-for-manual-trigger
+     wait-for-repo)
     some-step-that-does-nothing
     (with-workspace
-      clone)))
+      clone
+      mytest)))
