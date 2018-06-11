@@ -29,10 +29,5 @@
       (GET "/" [] (ui-selection))
       (context "/lambdaui"  [] lambdaui-app)
       (context "/reference" [] referenceui-app)
-      (let [_ (log/info pipeline)
-            _ (log/info "get notifications for")]
-        (git/notifications-for pipeline))
-      #_(POST "/testpullrequest" [req] (do
-                                       (log/info req)
-                                       (str req))))))
+      (git/notifications-for pipeline))))
 
